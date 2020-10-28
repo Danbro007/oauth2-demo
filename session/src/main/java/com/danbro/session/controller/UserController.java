@@ -21,27 +21,27 @@ public class UserController {
     @Autowired
     private AuthenticationService authenticationService;
 
-    @PostMapping(value = "/login",produces = "text/plain;charset=utf-8")
-    public String login(AuthenticationRequest authenticationRequest, HttpSession session){
+    @PostMapping(value = "/login", produces = "text/plain;charset=utf-8")
+    public String login(AuthenticationRequest authenticationRequest, HttpSession session) {
         UserDto userDto = authenticationService.authentication(authenticationRequest);
-        session.setAttribute(UserDto.SESSION_KEY,userDto);
+        session.setAttribute(UserDto.SESSION_KEY, userDto);
         return userDto.getUsername() + "登录成功！";
     }
 
-    @GetMapping(value = "/r/r1",produces = "text/plain;charset=utf-8")
-    public String r1(HttpSession session){
+    @GetMapping(value = "/r/r1", produces = "text/plain;charset=utf-8")
+    public String r1(HttpSession session) {
         UserDto userDto = (UserDto) session.getAttribute(UserDto.SESSION_KEY);
-        if (userDto == null){
+        if (userDto == null) {
             return "匿名访问";
         }
         return userDto.getUsername() + "正在访问资源r1！";
     }
 
 
-    @GetMapping(value = "/r/r2",produces = "text/plain;charset=utf-8")
-    public String r2(HttpSession session){
+    @GetMapping(value = "/r/r2", produces = "text/plain;charset=utf-8")
+    public String r2(HttpSession session) {
         UserDto userDto = (UserDto) session.getAttribute(UserDto.SESSION_KEY);
-        if (userDto == null){
+        if (userDto == null) {
             return "匿名访问";
         }
         return userDto.getUsername() + "正在访问资源r2！";
@@ -49,7 +49,7 @@ public class UserController {
 
 
     @GetMapping("/logout")
-    public String logout(HttpSession session){
+    public String logout(HttpSession session) {
         session.invalidate();
         return "退出登录！";
     }

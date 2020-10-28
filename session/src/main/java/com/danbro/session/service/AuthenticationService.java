@@ -12,6 +12,7 @@ import com.danbro.session.entity.UserDto;
 public interface AuthenticationService {
     /**
      * 用户认证
+     *
      * @param authenticationRequest 用户发送的请求
      * @return 用户消息
      */

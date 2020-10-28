@@ -1,6 +1,7 @@
-package com.danbro.session.entity;
+package com.danbro.springsecurity.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.Set;
@@ -12,6 +13,7 @@ import java.util.Set;
  * @Author Danrbo
  */
 @Data
+@Builder
 @AllArgsConstructor
 public class UserDto {
     public final static String SESSION_KEY = "user_";
