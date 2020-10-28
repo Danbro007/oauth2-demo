@@ -1,9 +1,13 @@
 package com.danbro.springsecurity.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.beans.Transient;
 import java.util.Set;
 
 /**
@@ -15,15 +19,19 @@ import java.util.Set;
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
+@TableName(value = "user")
 public class UserDto {
-    public final static String SESSION_KEY = "user_";
     private Integer id;
     private String username;
     private String password;
-    private String fullName;
-    private String mobile;
+//    @TableField(exist = false)
+//    private String fullName;
+//    @TableField(exist = false)
+//    private String mobile;
     /**
      * 权限集合
      */
-    private Set<String> authorities;
+//    @TableField(exist = false)
+//    private Set<String> authorities;
 }
