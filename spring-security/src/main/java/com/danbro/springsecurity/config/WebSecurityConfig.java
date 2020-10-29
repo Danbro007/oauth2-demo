@@ -4,6 +4,7 @@ import com.danbro.springsecurity.service.SpringDataUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -19,6 +20,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
  * @Author Danrbo
  */
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 负责登录验证
@@ -50,11 +52,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/r/r1").hasAnyAuthority("p1")// 基于角色的权限
-                .antMatchers("/r/r2").hasAnyAuthority("p2")
-                .antMatchers("/r/**").authenticated().
-                anyRequest().permitAll().// 对 /r/** 的路径进行认证
+        http.authorizeRequests()                                                             // 1
+//                .antMatchers("/r/r1").hasAnyAuthority("p1")// 3
+//                .antMatchers("/r/r2").hasAnyAuthority("p2")// 3
+//                .antMatchers("/r/r3").access("hasAuthority('p1') and hasAuthority('p2')")// 4
+                .antMatchers("/r/**").authenticated().                      // 5
+                anyRequest().permitAll().// 对 /r/** 的路径进行认证                           // 6
                 and().formLogin().// 允许表单登录
                 loginPage("/login-view").// 指定自定义的登录页面
                 successForwardUrl("/login-success").// 登录成功跳转的页面

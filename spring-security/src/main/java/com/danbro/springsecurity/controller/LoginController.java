@@ -1,5 +1,6 @@
 package com.danbro.springsecurity.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,12 +18,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class LoginController {
+    @PreAuthorize("hasAuthority('p1')")
     @ResponseBody
     @GetMapping(value = "/r/r1")
     public String r1() {
         return getUsername() + "正在访问资源r1！";
     }
-
+    @PreAuthorize("hasAuthority('p2')")
     @ResponseBody
     @GetMapping(value = "/r/r2")
     public String r2() {
