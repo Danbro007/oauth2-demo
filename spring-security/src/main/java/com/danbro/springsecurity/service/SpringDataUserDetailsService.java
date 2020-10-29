@@ -1,10 +1,10 @@
 package com.danbro.springsecurity.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.danbro.springsecurity.entity.PermissionDto;
 import com.danbro.springsecurity.entity.UserDto;
 import com.danbro.springsecurity.mapper.UserDtoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,7 +34,11 @@ public class SpringDataUserDetailsService implements UserDetailsService {
         if (userDto == null) {
             throw new UsernameNotFoundException("用户不存在！");
         }
-        List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList("p1");
-        return User.withUsername(userDto.getUsername()).password(userDto.getPassword()).authorities(authorities).build();
+        // 把查询到的权限转换成一个字符串数组
+        List<String> permissions = new ArrayList<>();
+        userDtoMapper.getPermissionByUserId(userDto.getId()).forEach(e->permissions.add(e.getCode()));
+        String[] stringArray = new String[permissions.size()];
+        permissions.toArray(stringArray);
+        return User.withUsername(userDto.getUsername()).password(userDto.getPassword()).authorities(stringArray).build();
     }
 }

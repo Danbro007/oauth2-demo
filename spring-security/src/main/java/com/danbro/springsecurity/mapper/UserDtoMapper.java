@@ -1,9 +1,11 @@
 package com.danbro.springsecurity.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.danbro.springsecurity.entity.PermissionDto;
 import com.danbro.springsecurity.entity.UserDto;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @Classname UserDtoMapper
@@ -13,4 +15,5 @@ import javax.annotation.Resource;
  */
 @Resource
 public interface UserDtoMapper extends BaseMapper<UserDto> {
+    List<PermissionDto> getPermissionByUserId(Integer userId);
 }

@@ -20,7 +20,7 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName(value = "user")
+@TableName(value = "t_user")
 public class UserDto {
     private Integer id;
     private String username;

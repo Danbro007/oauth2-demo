@@ -6,9 +6,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 /**
  * @Classname WebSecurityConfig
@@ -58,6 +60,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 successForwardUrl("/login-success").// 登录成功跳转的页面
                 loginProcessingUrl("/login").//
                 permitAll().// 允许所有用户访问我们的登录页
-                and().csrf().disable(); // 关闭 CSRF
+                and().csrf().disable(). // 关闭 CSRF
+                sessionManagement().
+                sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);// Session 会话控制
+
+
+
     }
 }
